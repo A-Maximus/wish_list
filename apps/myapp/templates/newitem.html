@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>New Item</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="nav_buttons">
+            <a href="/dashboard">Home</a> &nbsp; &nbsp;
+            <a href="/logout">Logout</a>
+        </div>
+        <div class="main">
+            <h2>Create a New Wish List Item</h2>
+        </div>
+        <br>
+        <form class="form mt-3" action="/create_item" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="products">Item/Product:</label>
+                {% for msg in messages %}
+                
+                    <p class="{{ msg.tags }}">
+                        {{ msg }}
+                    </p>
+                
+                {% endfor %}
+                <input class="form-control" type="text" name="item" id="item/product" />
+            </div>
+            
+            <br>
+            <a href="/dashboard"><input class="btn btn-dark" type="submit" value="Add" /></a>
+            <!-- <input class="btn btn-dark" type="submit" value="Add"/> -->
+        </form>
+    </div>
+</body>
+</html>

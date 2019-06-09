@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wish_List_Items</title>
+    <style>
+    /* .nav_buttons a {
+        /* display: inline-block; */
+        /* text-align: right; */
+        margin-left: 500px;
+    } */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav_buttons">
+            <a href="/dashboard">Home</a> &nbsp; &nbsp;
+            <a href="/logout">Logout</a>
+        </div>
+        
+        <h1>{{ item.item }}</h1>
+        <!-- <p>{{ join.user_id.added_by_id.username }}</p> -->
+
+        <br>
+        <br>
+
+        <h3>Users who added this item/product under their wish list:</h3>
+        {% for join in other_users_wish_list_items %}
+            {% if join.user.id != request.session.id %}
+            <p>{{ join.user.username }}</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <!-- <p>{{ users_joining_the_trip }}</p> -->
+</body>
+</html>
+

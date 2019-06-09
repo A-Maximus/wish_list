@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+
+    <style>
+        /* * {
+            padding: 0;
+            margin: 0;
+        } */
+
+        .container {
+            padding: 10px;
+        }
+        
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        
+        .a logout {
+            display: inline-block;
+            margin-left: 200px;
+            /* text-align: right; */
+            /* float: right; */
+        }
+        </style>
+</head>
+
+<body>
+    <div class="container">
+        <a class="logout" href="/logout">Logout</a>
+        <h2>Hello, {{ user.username }}!</h2>
+        <!-- <p>{{ user.name }}</p> -->
+        <!-- <a href="/displaymovies">Home</a>
+            <a href="/newmovie">New Movie</a> -->
+            
+            <p>Your Wish List:</p>
+            <table>
+                <tr>
+                    
+                    <th>Item</th>
+                    <th>Added by</th>
+                    <th>Date Added</th>
+                    <th>Action</th>
+                    <!-- <th>Remove?</th> -->
+                </tr>
+                {% for join in joins %}
+                <tr>
+                    <td><a href="/wishlistitems/{{join.item.id}}">{{ join.item.item }}</a></td>
+                    <td>{{ join.user.username }}</td>
+                    <td>{{ join.item.created_at }}</td>
+                
+                    {% if request.session.id == join.item.added_by.id %}
+                    <td> <a href="/deleteitem/{{join.item.id}}">Delete</a></td>
+                    {% else %}
+                    <td> <a href="/removefromwishlist/{{join.item.id}}">Remove From My Wish List</a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+            <br>
+            <br>
+            <p>Other Users' Wish List</p>
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Added by</th>
+                    <th>Date Added</th>
+                    <th>Action</th>
+                </tr>
+                {% for item in other_wish_items %}
+                <tr>
+                    <td><a href="/wishlistitems/{{item.id}}">{{ item.item }}</a></td>
+                    <td>{{ item.added_by.username }}</td>
+                    <td>{{ item.created_at }}</td>
+                    <td><a href="/addtowishlist/{{item.id}}">Add to my Wishlist</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br>
+            <a class="newitem" href="/newitem">Add Item</a>
+        </div>
+        <!-- <p>{{ other_wish_items }}</p> -->
+    </body>
+    </html>
